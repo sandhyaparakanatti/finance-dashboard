@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FinTrack</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="login-bg">
+    <div class="login-container">
+        <div class="login-card card">
+            <div class="login-header">
+                <i class="fas fa-wallet fa-3x"></i>
+                <h2>FinTrack</h2>
+                <p>Welcome back! Please select your role to continue.</p>
+            </div>
+            <div class="login-body">
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <label for="user_id">Select Developer Persona</label>
+                        <select name="user_id" id="user_id" required>
+                            <option value="" disabled selected>-- Choose Role --</option>
+                            {% for u in users %}
+                            <option value="{{ u.id }}">{{ u.name }} (Role: {{ u.role }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Sign In <i class="fas fa-sign-in-alt"></i></button>
+                </form>
+            </div>
+            <div class="login-footer">
+                <small>© 2024 - Evaluation Demo System</small>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-wallet"></i> <span>FinTrack</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item {{ 'active' if active_page == 'dashboard' else '' }}">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+                <a href="/records" class="nav-item {{ 'active' if active_page == 'records' else '' }}">
+                    <i class="fas fa-list"></i> Records
+                </a>
+                {% if session.get('role') == 'Admin' %}
+                <a href="/add-record" class="nav-item {{ 'active' if active_page == 'add-record' else '' }}">
+                    <i class="fas fa-plus-circle"></i> Add Record
+                </a>
+                {% endif %}
+            </nav>
+            <div class="sidebar-footer">
+                <a href="/logout" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-breadcrumb">
+                    {{ active_page.capitalize() if active_page else 'Home' }}
+                </div>
+                <div class="user-profile">
+                    <span class="user-name">{{ session.get('name') }}</span>
+                    <span class="user-role badge">{{ session.get('role') }}</span>
+                </div>
+            </header>
+            
+            <section class="content-area">
+                {% block content %}{% endblock %}
+            </section>
+        </main>
+    </div>
+
+    <!-- UI Components: Toast Notification -->
+    <div id="toast-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const USER_ROLE = "{{ session.get('role') }}";
+    </script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

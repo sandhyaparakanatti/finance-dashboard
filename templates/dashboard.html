@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="dashboard-grid">
+    <!-- Stat Cards -->
+    <div class="stat-cards">
+        <div class="card stat-card income">
+            <div class="card-body">
+                <div class="stat-info">
+                    <span class="stat-label">Total Income</span>
+                    <h3 id="total-income" class="stat-value">$0.00</h3>
+                </div>
+                <div class="stat-icon"><i class="fas fa-arrow-up"></i></div>
+            </div>
+        </div>
+        <div class="card stat-card expense">
+            <div class="card-body">
+                <div class="stat-info">
+                    <span class="stat-label">Total Expense</span>
+                    <h3 id="total-expense" class="stat-value">$0.00</h3>
+                </div>
+                <div class="stat-icon"><i class="fas fa-arrow-down"></i></div>
+            </div>
+        </div>
+        <div class="card stat-card balance">
+            <div class="card-body">
+                <div class="stat-info">
+                    <span class="stat-label">Net Balance</span>
+                    <h3 id="net-balance" class="stat-value">$0.00</h3>
+                </div>
+                <div class="stat-icon"><i class="fas fa-scale-balanced"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-area">
+        <div class="card chart-card">
+            <div class="card-header">
+                <h3>Spending by Category</h3>
+            </div>
+            <div class="card-body canvas-container">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+        <div class="card chart-card">
+            <div class="card-header">
+                <h3>Income vs Expenses</h3>
+            </div>
+            <div class="card-body canvas-container">
+                <canvas id="balanceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="card table-card recent-transactions">
+        <div class="card-header">
+            <h3>Recent Transactions</h3>
+            <a href="/records" class="btn btn-sm btn-outline">View All</a>
+        </div>
+        <div class="card-body">
+            <table class="table striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="recent-table-body">
+                    <!-- Loaded via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        loadDashboardData();
+    });
+</script>
+{% endblock %}
